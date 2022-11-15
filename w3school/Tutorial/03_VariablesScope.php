@@ -5,7 +5,7 @@
         $x = 5; // global scope
 
         function Test1() {
-            // using x inside this function will generate an error
+            $x = "error";
             echo "<p>Variable x inside function is: $x</p>";
         }
 
