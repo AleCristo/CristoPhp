@@ -16,22 +16,19 @@
     <body>
         <br>
         <?php
-        $titolo = 'Es di prova';
-        $nRighe = 10;
-        $nColonne = 10;
-        $riga = 1;
-        $colonna = 1;
-        echo "<table border='1' align='center'>
-            <tr> <th colspan=" . $nColonne . ">" . $titolo . "</th></tr>";
+        $title = 'Test';
+        
+        $rows = 10;
+        $colums = 10;
+        
+        echo "<table border='2'>
+            <tr> <th colspan=" . $colums . ">" . $title . "</th></tr>";
 
-        for($i = 0; $i < $nRighe; $i++){
+        for($i = 0; $i < $rows; $i++){
             echo "<tr>";
-            for($j = 0; $j < $nColonne; $j++){
-                echo"<td>" . $riga . "," .$colonna. "</td>";
-                $colonna++;
+            for($j = 0; $j < $colums; $j++){
+                echo"<td>" . "test" . "</td>";
             }
-            $colonna = 1;
-            $riga++;
         } 
 
         echo "</table>";
