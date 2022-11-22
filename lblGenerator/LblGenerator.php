@@ -14,19 +14,20 @@
     </head>
 
     <body>
+        
         <br>
         <?php
         $title = 'Test';
         
-        $rows = 10;
+        $rows = 2;
         $colums = 10;
         
         echo "<table border='2'>
             <tr> <th colspan=" . $colums . ">" . $title . "</th></tr>";
 
-        for($i = 0; $i < $rows; $i++){
+        for($i = 0; $i < $colums; $i++){
             echo "<tr>";
-            for($j = 0; $j < $colums; $j++){
+            for($j = 0; $j < $rows; $j++){
                 echo"<td>" . "test" . "</td>";
             }
         } 
