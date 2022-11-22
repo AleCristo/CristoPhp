@@ -17,10 +17,12 @@
         
         <br>
         <?php
-        $title = 'Test';
+        $title = 'Test LblGenerator';
         
-        $rows = 2;
+        $rows = 8;
         $colums = 10;
+        $r = 0;
+        $c = 0;
         
         echo "<table border='2'>
             <tr> <th colspan=" . $colums . ">" . $title . "</th></tr>";
@@ -28,8 +30,11 @@
         for($i = 0; $i < $colums; $i++){
             echo "<tr>";
             for($j = 0; $j < $rows; $j++){
-                echo"<td>" . "test" . "</td>";
+                echo"<td>" . $c . $r . "</td>";
+                $r++;
             }
+            $r=0;
+            $c++;
         } 
 
         echo "</table>";
