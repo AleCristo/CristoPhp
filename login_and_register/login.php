@@ -63,21 +63,50 @@
             }
         </style>
 
-
-        <!-- Custom styles for this template -->
+    <?php
+    $email = $password = $emailErr = $passwordErr = "";
+    
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+        $email = noSpace($_POST["email"]);   
+        if (!preg_match("/[A-z0-9\.\+_-]+@buonarroti.tn.it{1}/", $email)){
+            $emailErr = "Errore";
+        }
+        
+        $password = noSpace($_POST["password"]);
+        if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", $password)){
+            $passwordErr = "Errore";
+        }
+        
+        
+    }
+    
+    function noSpace($obj) {
+        $obj = trim($obj);
+        $obj = stripcslashes($obj);
+        $obj = htmlspecialchars($obj);
+        //trim
+        //strips
+        //htmls
+        return $obj;
+    }
+    
+    ?>
+    
+        
     </head>
     <body class="text-center">
         <div class="container">
             <main class="form-signin w-100 m-auto">
-                <form action="Cristoforetti_Login.php" method="get">
+                <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
                     <img class="mb-4" src="img/logo.png" alt="" width="100" height="100">
                     <h1 class="h3 mb-3 fw-normal">Please login:</h1>
                     <div class="form-floating">
-                        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="text" name="email" class="form-control" id="floatingInput" value="<?= $email; ?>" placeholder="name@example.com"><span class="error"><?php echo $emailErr;?></span>
                         <label for="floatingInput">Email address</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <input type="password" name="password" class="form-control" id="floatingPassword" value="<?php echo $password; ?>" placeholder="Password"><span class="error"><?php echo $passwordErr;?></span>
                         <label for="floatingPassword">Password</label>
                     </div>
 
