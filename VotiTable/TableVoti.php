@@ -20,7 +20,7 @@ session_start();
             margin-right: auto;
         }
 
-        td, td, th {
+        td, tr, th {
 
             border: 1px solid black;
             padding: 10px;
@@ -123,7 +123,7 @@ session_start();
                 <table class="table">
                     <tr> 
                         <th>Materia</th>
-                        <th><input type="text" name="materia" value="<?= $materia ?>" required="" pattern="[A-za-z]{1,20}" placeholder="da 1 a 20 caratteri"></th>
+                        <th><input type="text" name="materia" value="<?= $materia ?>" required="" pattern="[A-Za-z]{1,20}" placeholder="da 1 a 20 caratteri"></th>
                     </tr>
                     <tr> 
                         <th>Voto</th>
