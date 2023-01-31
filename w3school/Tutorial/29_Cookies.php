@@ -5,14 +5,14 @@ setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1
 ?>
 
 <?php
-$cookie_name = "user";
-$cookie_value = "Alex Porter";
+//$cookie_name = "user";
+//$cookie_value = "Alex Porter";
 setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
 ?>
 
 <?php
 // set the expiration date to one hour ago
-setcookie("user", "", time() - 3600);
+//setcookie("user", "", time() - 3600);
 ?>
 
 <?php
@@ -38,10 +38,6 @@ setcookie("test_cookie", "test", time() + 3600, '/');
             echo "Cookie '" . $cookie_name . "' is set!<br>";
             echo "Value is: " . $_COOKIE[$cookie_name];
         }
-        ?>
-
-        <?php
-        echo "Cookie 'user' is deleted.";
         ?>
 
         <?php
