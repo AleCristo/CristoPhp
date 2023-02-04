@@ -43,7 +43,7 @@ $cookie_name = "";
 
             $cookie_name = $paese;
             if ($cookie_name != "") {
-                setcookie($cookie_name, $paese, time() + (86400 * 30), "/");
+                setcookie($cookie_name, $paese, time() + (86400), "/");
             }
             ?>
             <table border=1>
@@ -73,7 +73,7 @@ $cookie_name = "";
         } else {
             ?>
             <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">  
-                Visitati nell'ultimo mese:
+                Visitati questo giorno:
                 <br>
                 <?php
                 foreach ($_COOKIE as $cookie_name => $cookie_value) {
@@ -86,7 +86,7 @@ $cookie_name = "";
                 <table class="table">
                     <tr> 
                     <br><br>
-                    <th><input type="text" name="paese" id="paese" pattern="[A-Za-z]{1,20}" placeholder="inserire nome del luogo"></th>
+                    <th><input type="text" name="paese" id="paese" pattern="[A-Za-z ]{1,20}" placeholder="inserire nome del luogo"></th>
                     </tr>
                     <tr>
                         <th colspan="3"><input type="submit"></th>
