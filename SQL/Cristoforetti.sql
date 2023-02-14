@@ -16,6 +16,19 @@ CREATE TABLE tcontatti ( /* Creo Tabella */
     INDEX icontatti (nome)    
 ) ENGINE = InnoDB;
 
+CREATE TABLE ttelefoni (
+    id_telefoni                 BIGINT              NOT NULL    AUTO_INCREMENT,
+    numero                      VARCHAR(20),
+    operatore                   VARCHAR(20),
+    tipo                        ENUM('P', 'C', 'L'), /* Personale - Casa - Lavoro */
+    fk_contatti                 BIGINT              NOT NULL,
+    PRIMARY KEY(id_telefoni),
+    INDEX itelefoni (numero),
+    FOREIGN KEY(fk_contatti) REFERENCES tcontatti(id_contatti) /* FOREIGN KEY Constraint */
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
 CREATE TABLE trandom (
     id_random                   BIGINT              NOT NULL    AUTO_INCREMENT,
     random                      INT,
@@ -26,16 +39,8 @@ CREATE TABLE trandom (
 CREATE INDEX INX_random    /* creo un index */
 ON trandom (random, id_random);
 
-ALTER TABLE trandom /* modifica tabella */
-ADD newRand INT,
-DROP COLUMN random;
-
-DROP TABLE trandom /* elimino Tabella */
-
-CREATE TABLE ttelefoni (
-    id_telefoni                 BIGINT              NOT NULL    AUTO_INCREMENT,
-    numero                      VARCHAR(20),
-    operatore                   VARCHAR(20),
+ALTER TABLE trandom ( /* modifica tabella */
+ADD newRand                VARCHAR(20),
     tipo                        ENUM('P', 'C', 'L'), /* Personale - Casa - Lavoro */
     fk_contatti                 BIGINT              NOT NULL,
     PRIMARY KEY(id_telefoni),
@@ -81,10 +86,12 @@ UPDATE tcontatti
 SET nome = 'Rhon'
 WHERE id_contatti = 1;
 
-CREATE VIEW [contatti attivi] AS    /* Views */
+CREATE VIEW contattiAtt AS    /* Views */
 SELECT nome, cognome
 FROM tcontatti
 WHERE Attivo = true;
+
+SELECT * FROM contattiAtt
 
 /* SELECT - extracts data from a database
 UPDATE - updates data in a database
@@ -108,4 +115,43 @@ SELECT nome, cognome    /* ritorna il nome e il cognome dei contatti attivi */
 FROM tcontatti
 WHERE Attivo = true;
 
-DROP DATABASE my_contatti; /* Elimino Database */
+SELECT nome, cognome
+FROM tcontatti
+WHERE nome = 'Rhon' AND Attivo = true;
+
+SELECT nome, cognome
+FROM tcontatti
+WHERE nome = 'Rhon' OR Attivo = true;
+
+SELECT nome, cognome    /* ritorna il nome e il cognome dei contatti attivi */
+FROM tcontatti
+WHERE NOT Attivo = true;
+
+SELECT DISTINCT Attivo
+FROM tcontatti;
+
+SELECT Attivo AS StatoUtente
+FROM tcontatti;
+
+SELECT TOP 2 *
+FROM tcontatti;
+
+SELECT nome, cognome
+FROM tcontatti
+LIMIT 2 OFFSET 3;
+
+SELECT *
+FROM tcontatti
+FETCH FIRST 2 ROWS ONLY; /*only oracle*/
+
+SELECT COUNT *
+FROM tcontatti;
+
+DROP DATABASE my_contatti; /* Elimino Database */ INT,
+DROP COLUMN random;
+
+DROP TABLE trandom /* elimino Tabella */
+
+
+
+
