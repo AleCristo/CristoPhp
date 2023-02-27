@@ -105,53 +105,141 @@ DROP TABLE - deletes a table
 CREATE INDEX - creates an index (search key)
 DROP INDEX - deletes an index */
 
-SELECT *    /* ritorna tutto tcontatti */
-FROM tcontatti;
-
-SELECT nome    /* ritorna solo il nome */
-FROM tcontatti;
-
-SELECT nome, cognome    /* ritorna il nome e il cognome dei contatti attivi */
-FROM tcontatti
-WHERE Attivo = true;
-
+SELECT:
 SELECT nome, cognome
 FROM tcontatti
-WHERE nome = 'Rhon' AND Attivo = true;
 
-SELECT nome, cognome
-FROM tcontatti
-WHERE nome = 'Rhon' OR Attivo = true;
+/* Select all: */
+SELECT *
+FROM tconatti
 
-SELECT nome, cognome    /* ritorna il nome e il cognome dei contatti attivi */
-FROM tcontatti
-WHERE NOT Attivo = true;
-
-SELECT DISTINCT Attivo
-FROM tcontatti;
-
-SELECT Attivo AS StatoUtente
-FROM tcontatti;
-
-SELECT TOP 2 *
-FROM tcontatti;
-
-SELECT nome, cognome
-FROM tcontatti
-LIMIT 2 OFFSET 3;
-
+/* Select / where: */
 SELECT *
 FROM tcontatti
-FETCH FIRST 2 ROWS ONLY; /*only oracle*/
+WHERE nome = ‘Gianluca’
 
-SELECT COUNT *
+/* Select / where / and: */
+SELECT *
+FROM tcontatti
+WHERE nome = ‘Marco’ AND YEAR(data_nascita) >(<) 2000;
+
+/* Select / where / or: */
+SELECT *
+FROM tcontatti
+WHERE nome = ‘Alessio’ OR YEAR(data_nascita) >(<) 2000;
+
+/* Select / where / not: */
+SELECT *
+FROM tcontatti
+WHERE NOT nome = ‘Paolo’
+
+/* Select / distinct: */
+SELECT DISTINCT nome, cognome
 FROM tcontatti;
 
-DROP DATABASE my_contatti; /* Elimino Database */ INT,
-DROP COLUMN random;
+/* Select / distinct / count: */
+SELECT count(DISTINCT operatore)
+FROM ttelefoni
 
-DROP TABLE trandom /* elimino Tabella */
+/* Select / as: */
+SELECT nome AS name, cognome AS surname
+FROM tcontatti;
 
+/* Select / as/ concat: */
+SELECT CONCAT(nome, '  ', cognome) AS full_name
+FROM tcontatti;
+
+/* Select / limit / offset */
+SELECT nome			
+FROM tcontatti 			
+LIMIT 2 OFFSET 3                
+
+
+/* Select / in: */
+SELECT nome 
+FROM tcontatti
+WHERE nome IN (‘Pino’, ‘Andrea’) OR ‘Rossi’ IN (cognome)
+
+/* Select / between: */
+SELECT id_contatti
+FROM tcontatti
+WHERE id_contatti (NOT) BETWEEN 1 AND 30
+
+/* Select / null: */
+SELECT COUNT(*)
+FROM tcontatti
+WHERE nome IS (NOT) NULL
+
+/* Select / max / min: */
+SELECT MAX(id_telefoni)  AS max_id /* oppure min_id */
+FROM ttelefoni 
+
+/* Select / count / where: */
+SELECT COUNT(*) AS ncontatti
+FROM tcontatti
+
+/* Select as */
+SELECT count( DISTINCT id_contatti) AS ncontatti 
+FROM tcontatti
+WHERE nome = ‘Matteo’
+
+/* Select / order by: */
+SELECT *
+FROM tcontatti
+ORDER BY cognome, nome(ASC) /* oppure DESC */
+
+/* Select / group by */
+SELECT id_contatti, nome
+FROM tcontatti 
+GROUP BY id_contatti, nome
+
+/* select / like */
+SELECT * 
+FROM tcontatti
+WHERE nome LIKE ‘M%o’
+
+/* select / union: */
+SELECT nome
+FROM tcontatti
+UNION
+SELECT operatore
+FROM ttelefoni
+
+/* subquery */
+SELECT id_contatti 
+FROM tcontatti
+WHERE id_contatti IN (
+	SELECT fk_contatti 
+FROM tappartiene
+)
+
+/* join */
+SELECT id_contatti
+FROM tcontatti
+INNER JOIN tappartiene
+ON tcontatti.idcontatti = tappartiene.fk_contatti
+
+
+/* insert into */
+INSERT INTO tabella(campo1, campo2 …)
+VALUES (valore1, valore2  ...)
+
+/* update */
+UPDATE tcontatti
+SET nome = ‘bvo’, cognome = ‘wedcw’
+WHERE id_contatti = 1
+
+/* select / into: */
+SELECT *
+into copiacontatti(colonna1, colonna2)
+from tcontatti
+
+/* delete: */
+DELETE FROM tcontatti
+WHERE id_contatti > 5
+
+/* truncate: */
+TRUNCATE TABLE tcontatti
 
 
 
