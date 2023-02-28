@@ -78,9 +78,12 @@ CREATE TABLE tappartiene (
 
 INSERT INTO tcontatti(nome, cognome, codice_fiscale, data_nascita, ora_nascita, attivo) /* inserire valori nel database */
 VALUES
-('James', 'Bond', '12G863HU8KBFSADG', '12/03/03', '22:00', true),
-('Piero', 'Pirlo', '12GRG6789HTFSADG', '05/10/01', '06:50', false),
-('Marco', 'Romagni', '12FJESEWR423D6DG', '08/09/98', '13:62', true);
+('James', 'Bond', '12G863HU8KBFSADG', '03/03/12', '22:00', true),
+('Piero', 'Pirlo', '12GRG6789HTFSADG', '01/10/05', '06:50', false),
+('Paolo', 'Giancarlo', '12FJESEWR423D6DG', '98/09/03', '13:32:00', true),
+('Gino', 'Prati', '45THRDEWR523D6DR', '02/11/24', '12:50', true),
+('Andrea', 'Trota', '15GRDT654HTD65GD', '96/04/05', '13:22', false),
+('Marco', 'Romagni', '63FHTYDR456DSRTR', '94/05/19', '15:26', true);
 
 UPDATE tcontatti
 SET nome = 'Rhon'
@@ -116,22 +119,22 @@ FROM tconatti
 /* Select / where: */
 SELECT *
 FROM tcontatti
-WHERE nome = ‘Gianluca’
+WHERE nome = 'Gianluca'
 
 /* Select / where / and: */
 SELECT *
 FROM tcontatti
-WHERE nome = ‘Marco’ AND YEAR(data_nascita) >(<) 2000;
+WHERE nome = 'Marco' AND YEAR(data_nascita) >(<) 2000;
 
 /* Select / where / or: */
 SELECT *
 FROM tcontatti
-WHERE nome = ‘Alessio’ OR YEAR(data_nascita) >(<) 2000;
+WHERE nome = 'Alessio' OR YEAR(data_nascita) > 2000;  
 
 /* Select / where / not: */
 SELECT *
 FROM tcontatti
-WHERE NOT nome = ‘Paolo’
+WHERE NOT nome = 'Paolo'
 
 /* Select / distinct: */
 SELECT DISTINCT nome, cognome
@@ -158,7 +161,7 @@ LIMIT 2 OFFSET 3
 /* Select / in: */
 SELECT nome 
 FROM tcontatti
-WHERE nome IN (‘Pino’, ‘Andrea’) OR ‘Rossi’ IN (cognome)
+WHERE nome IN ('Pino', 'Andrea') OR 'Rossi' IN (cognome)
 
 /* Select / between: */
 SELECT id_contatti
@@ -181,7 +184,7 @@ FROM tcontatti
 /* Select as */
 SELECT count( DISTINCT id_contatti) AS ncontatti 
 FROM tcontatti
-WHERE nome = ‘Matteo’
+WHERE nome = 'Matteo'
 
 /* Select / order by: */
 SELECT *
@@ -196,7 +199,7 @@ GROUP BY id_contatti, nome
 /* select / like */
 SELECT * 
 FROM tcontatti
-WHERE nome LIKE ‘M%o’
+WHERE nome LIKE 'M%o'
 
 /* select / union: */
 SELECT nome
@@ -226,7 +229,7 @@ VALUES (valore1, valore2  ...)
 
 /* update */
 UPDATE tcontatti
-SET nome = ‘bvo’, cognome = ‘wedcw’
+SET nome = 'Paolo', cognome = 'Piero'
 WHERE id_contatti = 1
 
 /* select / into: */
@@ -241,5 +244,38 @@ WHERE id_contatti > 5
 /* truncate: */
 TRUNCATE TABLE tcontatti
 
+ALTER TABLE tcontatti
+ADD COLUMN citta    varchar(20);
 
 
+/* query esercizio */
+SELECT citta, COUNT(*) AS numContatti
+FROM tcontatti
+GROUP BY citta
+
+SELECT *
+FROM tcontatti
+ORDER BY citta 
+
+SELECT *
+FROM tcontatti
+ORDER BY data_nascita DESC
+LIMIT 1
+
+SELECT *
+FROM tcontatti, ttelefoni
+WHERE tcontatti.id_contatti = ttelefoni.fk_contatti
+AND ttelefoni.operatore = 'Vodafone'
+
+SELECT operatore, COUNT(*) AS numContatti
+FROM ttelefoni
+GROUP BY operatore
+
+SELECT operatore, COUNT(*) AS numContatti
+FROM ttelefoni
+GROUP BY operatore
+HAVING numContatti = (SELECT COUNT(*) AS numContatti
+FROM ttelefoni
+GROUP BY operatore
+ORDER BY numContatti
+LIMIT 1);
